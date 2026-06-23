@@ -1,0 +1,212 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2800 1700" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="13" markerHeight="13" orient="auto">
+      <path d="M0,0 L12,6 L0,12 z" fill="#000000"/>
+    </marker>
+    <marker id="dasharrow" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="13" markerHeight="13" orient="auto">
+      <path d="M0,0 L12,6 L0,12 z" fill="#444444"/>
+    </marker>
+  </defs>
+
+  <rect width="2800" height="1700" fill="#FFFFFF"/>
+
+  <text x="120" y="80" fill="#000000" font-size="34" font-weight="700">TES Pyomo Module Architecture</text>
+  <text x="120" y="118" fill="#444444" font-size="16" font-style="italic">How the Phase 2 module plugs into the PtXv3 framework. Data flows left to right.</text>
+
+  <!-- ============ INPUTS ============ -->
+  <text x="120" y="200" fill="#000000" font-size="18" font-weight="700" letter-spacing="2">INPUTS</text>
+  <rect x="120" y="220" width="380" height="900" fill="none" stroke="#444444" stroke-width="2" stroke-dasharray="8 4"/>
+
+  <g>
+    <rect x="160" y="260" width="300" height="150" fill="#FFFFFF" stroke="#000000" stroke-width="2.5" rx="8"/>
+    <text x="310" y="295" text-anchor="middle" fill="#000000" font-size="13" font-weight="700" letter-spacing="2">SCENARIO INPUT</text>
+    <text x="310" y="324" text-anchor="middle" fill="#000000" font-size="18" font-weight="700">gjt_working.xlsx</text>
+    <text x="310" y="350" text-anchor="middle" fill="#000000" font-size="12">TES tab: capex, opex, rte,</text>
+    <text x="310" y="368" text-anchor="middle" fill="#000000" font-size="12">CDratio, duration, st_eff, st_min</text>
+    <text x="310" y="392" text-anchor="middle" fill="#000000" font-size="12">Sites tab: PV / wind profiles</text>
+  </g>
+
+  <g>
+    <rect x="160" y="450" width="300" height="150" fill="#FFFFFF" stroke="#000000" stroke-width="2.5" rx="8"/>
+    <text x="310" y="485" text-anchor="middle" fill="#000000" font-size="13" font-weight="700" letter-spacing="2">WEATHER</text>
+    <text x="310" y="515" text-anchor="middle" fill="#000000" font-size="18" font-weight="700">Roman backcast</text>
+    <text x="310" y="540" text-anchor="middle" fill="#000000" font-size="12">Hourly capacity factors</text>
+    <text x="310" y="558" text-anchor="middle" fill="#000000" font-size="12">Representative weeks selected</text>
+    <text x="310" y="582" text-anchor="middle" fill="#000000" font-size="12">for full year approximation</text>
+  </g>
+
+  <g>
+    <rect x="160" y="640" width="300" height="150" fill="#FFFFFF" stroke="#000000" stroke-width="2.5" rx="8"/>
+    <text x="310" y="675" text-anchor="middle" fill="#000000" font-size="13" font-weight="700" letter-spacing="2">LOAD</text>
+    <text x="310" y="705" text-anchor="middle" fill="#000000" font-size="18" font-weight="700">Datacenter demand</text>
+    <text x="310" y="730" text-anchor="middle" fill="#000000" font-size="12">1,000 MW flat</text>
+    <text x="310" y="748" text-anchor="middle" fill="#000000" font-size="12">8,760 hours per year</text>
+    <text x="310" y="772" text-anchor="middle" fill="#000000" font-size="12">Load_min, Load_max, MRR</text>
+  </g>
+
+  <g>
+    <rect x="160" y="830" width="300" height="150" fill="#FFFFFF" stroke="#000000" stroke-width="2.5" rx="8"/>
+    <text x="310" y="865" text-anchor="middle" fill="#000000" font-size="13" font-weight="700" letter-spacing="2">FINANCE</text>
+    <text x="310" y="895" text-anchor="middle" fill="#000000" font-size="18" font-weight="700">WACC, tax, ITC, PTC</text>
+    <text x="310" y="920" text-anchor="middle" fill="#000000" font-size="12">CRF over project life</text>
+    <text x="310" y="938" text-anchor="middle" fill="#000000" font-size="12">Section 48E investment credit</text>
+    <text x="310" y="962" text-anchor="middle" fill="#000000" font-size="12">Section 45 production credit</text>
+  </g>
+
+  <!-- ============ MODULE CORE ============ -->
+  <text x="650" y="200" fill="#000000" font-size="18" font-weight="700" letter-spacing="2">MODULE CORE</text>
+  <rect x="650" y="220" width="1280" height="1240" fill="none" stroke="#000000" stroke-width="2.5" stroke-dasharray="12 6" rx="10"/>
+  <rect x="650" y="220" width="500" height="40" fill="#000000"/>
+  <text x="670" y="248" fill="#FFFFFF" font-size="15" font-weight="700" letter-spacing="3">pyomo_DTC_CPLEX_TES.py</text>
+
+  <g>
+    <rect x="690" y="300" width="540" height="190" fill="#DDDDDD" stroke="#000000" stroke-width="2.5" rx="8"/>
+    <text x="960" y="335" text-anchor="middle" fill="#000000" font-size="13" font-weight="700" letter-spacing="2">DISPATCH LOOP</text>
+    <text x="960" y="370" text-anchor="middle" fill="#000000" font-size="20" font-weight="700">roll_cfe()</text>
+    <text x="960" y="402" text-anchor="middle" fill="#000000" font-size="13">Rolling window dispatch:</text>
+    <text x="960" y="424" text-anchor="middle" fill="#000000" font-size="13">336 hour window, 24 hour step</text>
+    <text x="960" y="446" text-anchor="middle" fill="#000000" font-size="13">State variables carried across</text>
+    <text x="960" y="468" text-anchor="middle" fill="#000000" font-size="13">window boundaries</text>
+  </g>
+
+  <g>
+    <rect x="1290" y="300" width="600" height="190" fill="#DDDDDD" stroke="#000000" stroke-width="2.5" rx="8"/>
+    <text x="1590" y="335" text-anchor="middle" fill="#000000" font-size="13" font-weight="700" letter-spacing="2">MODEL BUILDER</text>
+    <text x="1590" y="370" text-anchor="middle" fill="#000000" font-size="20" font-weight="700">py_dtc_cfe()</text>
+    <text x="1590" y="402" text-anchor="middle" fill="#000000" font-size="13">Assembles the Pyomo MILP:</text>
+    <text x="1590" y="424" text-anchor="middle" fill="#000000" font-size="13">objective + 25 constraints +</text>
+    <text x="1590" y="446" text-anchor="middle" fill="#000000" font-size="13">26 decision variables across</text>
+    <text x="1590" y="468" text-anchor="middle" fill="#000000" font-size="13">8,760 hours per year</text>
+  </g>
+
+  <!-- arrow between dispatch loop and model builder -->
+  <line x1="1230" y1="395" x2="1290" y2="395" stroke="#000000" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- TES BLOCK -->
+  <g>
+    <rect x="690" y="540" width="540" height="320" fill="#FFFFFF" stroke="#000000" stroke-width="2.5" rx="8"/>
+    <text x="960" y="575" text-anchor="middle" fill="#000000" font-size="13" font-weight="700" letter-spacing="2">TES BLOCK (NEW)</text>
+    <text x="960" y="612" text-anchor="middle" fill="#000000" font-size="18" font-weight="700">Storage core</text>
+    <text x="720" y="650" fill="#000000" font-size="12" font-weight="700">Variables:</text>
+    <text x="720" y="672" fill="#000000" font-size="12" font-family="Consolas, monospace">TCt, TDt, TXt, lTvt</text>
+    <text x="720" y="700" fill="#000000" font-size="12" font-weight="700">Constraints:</text>
+    <text x="720" y="722" fill="#000000" font-size="12" font-family="Consolas, monospace">c_tes_loss</text>
+    <text x="720" y="742" fill="#000000" font-size="12" font-family="Consolas, monospace">c_tes_soc</text>
+    <text x="720" y="762" fill="#000000" font-size="12" font-family="Consolas, monospace">c_tes_xmax / cmax / dmax</text>
+    <text x="720" y="794" fill="#000000" font-size="12" font-weight="700">Maps to Phase 1 equations:</text>
+    <text x="720" y="816" fill="#000000" font-size="12">1 (heater), 2 (SOC), 3 (HX), rate limits</text>
+  </g>
+
+  <!-- TURBINE BLOCK -->
+  <g>
+    <rect x="1290" y="540" width="600" height="320" fill="#FFFFFF" stroke="#000000" stroke-width="2.5" rx="8"/>
+    <text x="1590" y="575" text-anchor="middle" fill="#000000" font-size="13" font-weight="700" letter-spacing="2">STEAM TURBINE BLOCK (NEW)</text>
+    <text x="1590" y="612" text-anchor="middle" fill="#000000" font-size="18" font-weight="700">Power conversion</text>
+    <text x="1320" y="650" fill="#000000" font-size="12" font-weight="700">Variables:</text>
+    <text x="1320" y="672" fill="#000000" font-size="12" font-family="Consolas, monospace">Gtest, Kstt (binary)</text>
+    <text x="1320" y="700" fill="#000000" font-size="12" font-weight="700">Constraints:</text>
+    <text x="1320" y="722" fill="#000000" font-size="12" font-family="Consolas, monospace">c_st_eff</text>
+    <text x="1320" y="742" fill="#000000" font-size="12" font-family="Consolas, monospace">c_st_max  (Gtest &lt;= T3max · Kstt)</text>
+    <text x="1320" y="762" fill="#000000" font-size="12" font-family="Consolas, monospace">c_st_min  (Gtest &gt;= T3min · Kstt)</text>
+    <text x="1320" y="794" fill="#000000" font-size="12" font-weight="700">Maps to Phase 1 equation:</text>
+    <text x="1320" y="816" fill="#000000" font-size="12">4 (turbine) + turndown constraint</text>
+  </g>
+
+  <!-- EXISTING BLOCKS -->
+  <g>
+    <rect x="690" y="900" width="540" height="170" fill="#FFFFFF" stroke="#000000" stroke-width="2" rx="8"/>
+    <text x="960" y="935" text-anchor="middle" fill="#000000" font-size="13" font-weight="700" letter-spacing="2">EXISTING BLOCKS (UNCHANGED)</text>
+    <text x="720" y="970" fill="#000000" font-size="14" font-weight="700">BESS:</text>
+    <text x="800" y="970" fill="#000000" font-size="14">BCt, BDt, BXt, lBt + 5 constraints</text>
+    <text x="720" y="996" fill="#000000" font-size="14" font-weight="700">LDES:</text>
+    <text x="800" y="996" fill="#000000" font-size="14">LdCt, LdDt, LdXt, lLdt + 5 constraints</text>
+    <text x="720" y="1022" fill="#000000" font-size="14" font-weight="700">Gas:</text>
+    <text x="800" y="1022" fill="#000000" font-size="14">G1t, G2t, Gngt + heat rate calculations</text>
+    <text x="720" y="1048" fill="#000000" font-size="14" font-weight="700">Load:</text>
+    <text x="800" y="1048" fill="#000000" font-size="14">Lt, dLt, Lcurtt + ramp constraints</text>
+  </g>
+
+  <!-- ELECTRICITY BALANCE -->
+  <g>
+    <rect x="1290" y="900" width="600" height="170" fill="#FFFFFF" stroke="#000000" stroke-width="2.5" rx="8"/>
+    <text x="1590" y="935" text-anchor="middle" fill="#000000" font-size="13" font-weight="700" letter-spacing="2">ELECTRICITY BALANCE</text>
+    <text x="1590" y="965" text-anchor="middle" fill="#000000" font-size="14" font-weight="700">c1: supply = demand</text>
+    <text x="1320" y="998" fill="#000000" font-size="13" font-weight="700">Supply (TES contribution):</text>
+    <text x="1320" y="1016" fill="#000000" font-size="13" font-family="Consolas, monospace">+ Gtest[t]</text>
+    <text x="1320" y="1038" fill="#000000" font-size="13" font-weight="700">Demand (TES contribution):</text>
+    <text x="1320" y="1056" fill="#000000" font-size="13" font-family="Consolas, monospace">+ TCt[t]</text>
+  </g>
+
+  <!-- OBJECTIVE -->
+  <g>
+    <rect x="690" y="1110" width="1200" height="170" fill="#FFFFFF" stroke="#000000" stroke-width="2.5" rx="8"/>
+    <text x="1290" y="1145" text-anchor="middle" fill="#000000" font-size="13" font-weight="700" letter-spacing="2">OBJECTIVE FUNCTION</text>
+    <text x="1290" y="1175" text-anchor="middle" fill="#000000" font-size="14" font-weight="700">model.o:  maximize total annual revenue minus penalties</text>
+    <text x="1290" y="1200" text-anchor="middle" fill="#000000" font-size="13">Components: load served revenue + wind PTC + LDES bribe + imports - exports - curtailment - gas - non-CFE penalty - load curtailment</text>
+    <text x="1290" y="1222" text-anchor="middle" fill="#000000" font-size="13">Implicitly captures TES capex via outer financial wrapper (fin_DTC_CPLEX.py)</text>
+    <text x="1290" y="1250" text-anchor="middle" fill="#000000" font-size="13" font-style="italic">Solver: CPLEX (default) or Gurobi.  MIP gap tolerance loose enough for tractable solve.</text>
+  </g>
+
+  <!-- SOLVER -->
+  <g>
+    <rect x="690" y="1320" width="1200" height="120" fill="#DDDDDD" stroke="#000000" stroke-width="2.5" rx="8"/>
+    <text x="1290" y="1355" text-anchor="middle" fill="#000000" font-size="13" font-weight="700" letter-spacing="2">SOLVER</text>
+    <text x="1290" y="1390" text-anchor="middle" fill="#000000" font-size="18" font-weight="700">CPLEX (default) or Gurobi</text>
+    <text x="1290" y="1417" text-anchor="middle" fill="#000000" font-size="13">Mixed integer linear programming, branch and bound for the binary commitment</text>
+  </g>
+
+  <!-- ============ OUTPUTS ============ -->
+  <text x="1960" y="200" fill="#000000" font-size="18" font-weight="700" letter-spacing="2">OUTPUTS</text>
+  <rect x="1960" y="220" width="780" height="900" fill="none" stroke="#444444" stroke-width="2" stroke-dasharray="8 4"/>
+
+  <g>
+    <rect x="2000" y="260" width="700" height="200" fill="#FFFFFF" stroke="#000000" stroke-width="2.5" rx="8"/>
+    <text x="2350" y="295" text-anchor="middle" fill="#000000" font-size="13" font-weight="700" letter-spacing="2">DISPATCH TIME SERIES</text>
+    <text x="2350" y="325" text-anchor="middle" fill="#000000" font-size="18" font-weight="700">Pandas DataFrame</text>
+    <text x="2350" y="354" text-anchor="middle" fill="#000000" font-size="13">Indexed by hour, one column per variable</text>
+    <text x="2350" y="378" text-anchor="middle" fill="#000000" font-size="13" font-family="Consolas, monospace">TCt, TDt, TXt, Gtest, Kstt, lTvt</text>
+    <text x="2350" y="402" text-anchor="middle" fill="#000000" font-size="13">plus all existing BESS, LDES, gas, load variables</text>
+    <text x="2350" y="430" text-anchor="middle" fill="#000000" font-size="13">8,760 rows for a full year run</text>
+  </g>
+
+  <g>
+    <rect x="2000" y="500" width="700" height="200" fill="#FFFFFF" stroke="#000000" stroke-width="2.5" rx="8"/>
+    <text x="2350" y="535" text-anchor="middle" fill="#000000" font-size="13" font-weight="700" letter-spacing="2">FINANCIAL WRAPPER</text>
+    <text x="2350" y="565" text-anchor="middle" fill="#000000" font-size="18" font-weight="700">fin_DTC_CPLEX.py</text>
+    <text x="2350" y="594" text-anchor="middle" fill="#000000" font-size="13">Converts dispatch to financial metrics:</text>
+    <text x="2350" y="618" text-anchor="middle" fill="#000000" font-size="13">levelized cost of energy ($/MWh)</text>
+    <text x="2350" y="642" text-anchor="middle" fill="#000000" font-size="13">capex breakdown by technology</text>
+    <text x="2350" y="666" text-anchor="middle" fill="#000000" font-size="13">opex, IRA tax credit value</text>
+  </g>
+
+  <g>
+    <rect x="2000" y="740" width="700" height="200" fill="#FFFFFF" stroke="#000000" stroke-width="2.5" rx="8"/>
+    <text x="2350" y="775" text-anchor="middle" fill="#000000" font-size="13" font-weight="700" letter-spacing="2">RESULTS DIRECTORY</text>
+    <text x="2350" y="805" text-anchor="middle" fill="#000000" font-size="18" font-weight="700">CSV, JSON, plots</text>
+    <text x="2350" y="834" text-anchor="middle" fill="#000000" font-size="13">phase3_full_results.json</text>
+    <text x="2350" y="858" text-anchor="middle" fill="#000000" font-size="13">phase3_economic_report.md</text>
+    <text x="2350" y="882" text-anchor="middle" fill="#000000" font-size="13">capex by technology bar chart</text>
+    <text x="2350" y="906" text-anchor="middle" fill="#000000" font-size="13">dispatch trajectory PNG</text>
+  </g>
+
+  <!-- ============ DATA FLOW ARROWS ============ -->
+  <!-- Inputs to module core -->
+  <line x1="500" y1="340" x2="650" y2="395" stroke="#000000" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="500" y1="530" x2="650" y2="430" stroke="#000000" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="500" y1="715" x2="650" y2="500" stroke="#000000" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="500" y1="900" x2="650" y2="560" stroke="#000000" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- Module core to outputs -->
+  <line x1="1890" y1="395" x2="2000" y2="360" stroke="#000000" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="1890" y1="985" x2="2000" y2="600" stroke="#000000" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="1890" y1="1200" x2="2000" y2="840" stroke="#000000" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- ============ FOOTER NOTES ============ -->
+  <rect x="120" y="1500" width="2580" height="170" fill="#FFFFFF" stroke="#888888" stroke-width="1.5" rx="8"/>
+  <text x="140" y="1530" fill="#000000" font-size="14" font-weight="700">Integration notes:</text>
+  <text x="140" y="1556" fill="#000000" font-size="13">·  ptxclass_r1.py routes the TES technology selector to this module.  No other modules are touched.</text>
+  <text x="140" y="1580" fill="#000000" font-size="13">·  Scenario tab structure follows existing PtXv3 conventions.  Two new parameters (tes_st_eff, tes_st_min) to be added to the TES tab in next iteration.</text>
+  <text x="140" y="1604" fill="#000000" font-size="13">·  Naming convention mirrors pyomo_NH3.py wherever an ammonia equivalent exists.  TES specific naming (TCt, TDt, TXt, Gtest, Kstt) is documented in the Variable and Constraint Reference.</text>
+  <text x="140" y="1628" fill="#000000" font-size="13">·  Rolling window machinery from the original DTC_CPLEX is preserved.  TES state of charge is added to the four state variables carried across window boundaries.</text>
+  <text x="140" y="1652" fill="#000000" font-size="13">·  Six governing equations from Phase 1 (heater, SOC, HX, turbine, mass balance, rate limits) map to specific Pyomo constraints documented in the main module documentation, section 4.</text>
+</svg>
