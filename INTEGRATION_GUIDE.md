@@ -19,7 +19,7 @@ All files are in the repository root directory.
 
 ### Option A: Simple Replacement (Recommended)
 
-Replace imports in your existing code:
+Replace imports in the existing code:
 
 **Before (no TES):**
 ```python
@@ -59,7 +59,7 @@ financials = financial_module.build_pfx(vars, svar, results, ...)
 
 ## Required Configuration Parameters
 
-Add these to your `vars` dict or Excel config:
+Add these to the `vars` dict or Excel config:
 
 ### TES System
 ```python
@@ -87,7 +87,7 @@ svar['tesD_kW'] = 100000             # Thermal discharge capacity (kW)
 svar['tes_kWh'] = 1600000            # Thermal storage capacity (kWh)
 ```
 
-**Note:** `tes_kWh` should equal `tesD_kW × tes_duration` for consistency.
+**Documentation:** `tes_kWh` should equal `tesD_kW × tes_duration` for consistency.
 
 ## Sizing Example
 

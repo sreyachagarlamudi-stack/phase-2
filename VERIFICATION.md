@@ -258,7 +258,7 @@ $ python3 08_tes_financial_demo.py
 ### Requirement 3: Code Integration ✅
 
 **Requirement:**
-> Update the team's overarching input sheets and codebase, ensuring the broader PtX model can seamlessly call your TES module to run large-scale system optimizations.
+> Update the team's overarching input sheets and codebase, ensuring the broader PtX model can seamlessly call the TES module to run large-scale system optimizations.
 
 **Implementation:**
 

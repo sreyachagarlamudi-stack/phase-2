@@ -89,7 +89,7 @@ Solar + Wind + TES_Output + BESS + LDES + Gas = Datacenter_Load
 
 ### Option 1: Standalone TES Module
 
-Use TES optimization independently with your own data:
+Use TES optimization independently with the own data:
 
 ```python
 from pyomo_DTC_CPLEX_TES import roll_cfe
@@ -152,7 +152,7 @@ financials = financial_module.build_pfx(vars, svar, results, dftotin, basepath, 
 
 **Step 2: Add TES Configuration Parameters**
 
-Add to your Excel configuration or vars dict:
+Add to the Excel configuration or vars dict:
 
 ```python
 # TES System Configuration
